@@ -17,7 +17,11 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       # You can test your matrix by printing the current dotnet version
-      - name: Display dotnet version
-        run: dotnet --version
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Install dependencies
+        run: dotnet add package Newtonsoft.Json --version 12.0.1
+      - name: Build
+        run: dotnet build --no-restore
       - name: Test with the dotnet CLI
         run: dotnet test ./ServiceTest.Tests/ServiceTest.Tests.csproj
